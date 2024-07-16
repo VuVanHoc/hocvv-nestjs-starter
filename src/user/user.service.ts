@@ -89,7 +89,7 @@ export class UserService {
 		try {
 			// Verify refreshToken. If pass -> return user
 			await this.jwtService.verifyAsync(user.refreshToken, {
-				secret: this.configService.get<string>('JWT_REFRESHTOKEN_SECRET'),
+				secret: this.configService.get<string>('JWT_REFRESH_TOKEN_SECRET'),
 			});
 		} catch (error: any) {
 			if (error.name === 'TokenExpiredError') {

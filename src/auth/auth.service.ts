@@ -38,12 +38,12 @@ export class AuthService {
 		const loginResponseDto = new LoginResponseDto();
 		const accessToken = await this.generateToken(
 			user,
-			this.configService.get('JWT_ACCESSTOKEN_SECRET'),
+			this.configService.get('JWT_ACCESS_TOKEN_SECRET'),
 			this.configService.get('JWT_ACCESS_TOKEN_EXPIRED'),
 		);
 		const refreshToken = await this.generateToken(
 			user,
-			this.configService.get('JWT_REFRESHTOKEN_SECRET'),
+			this.configService.get('JWT_REFRESH_TOKEN_SECRET'),
 			this.configService.get('JWT_REFRESH_TOKEN_EXPRIED'),
 		);
 		loginResponseDto.accessToken = accessToken;
@@ -78,7 +78,7 @@ export class AuthService {
 		}
 		try {
 			const payload = await this.jwtService.verifyAsync(refreshToken, {
-				secret: this.configService.get('JWT_REFRESHTOKEN_SECRET'),
+				secret: this.configService.get('JWT_REFRESH_TOKEN_SECRET'),
 			});
 			if (!payload) {
 				throw new UnauthorizedException(ErrorEnum.TOKEN_EXPRIED);
@@ -90,8 +90,8 @@ export class AuthService {
 			});
 			const accessToken = await this.generateToken(
 				user,
-				this.configService.get('JWT_ACCESSTOKEN_SECRET'),
-				this.configService.get('JWT_ACCESSTOKEN_EXPRIED'),
+				this.configService.get('JWT_ACCESS_TOKEN_SECRET'),
+				this.configService.get('JWT_ACCESS_TOKEN_EXPIRED'),
 			);
 			return {
 				accessToken,
